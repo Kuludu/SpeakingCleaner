@@ -132,7 +132,7 @@ public class Main extends JavaPlugin {
 		if (!file.exists()) {
 			config.set("NoSpam:", "Enable");
 			config.set("SpeakingCleaner:", "Enable");
-			config.set("kicktime:", "2");
+			config.set("kicktime:", 2);
 			try {
 				config.save(file);
 			} catch (IOException e2) {
@@ -142,7 +142,12 @@ public class Main extends JavaPlugin {
 			// 获取设置
 			String s1 = config.getString("NoSpam:");
 			String s2 = config.getString("SpeakingCleaner:");
-			kicktime = config.getInt("kicktime");
+			kicktime = config.getInt("kicktime:");
+			if (kicktime < 2) {
+				getLogger().warning("踢出次数设置不能小于2");
+				kicktime = 2;
+				getLogger().info("踢出次数现在为" + kicktime);
+			}
 			if (s1.equalsIgnoreCase("enable")) {
 				isNoSpamEnable = true;
 			} else {

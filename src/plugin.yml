@@ -1,6 +1,6 @@
 name: SpeakingCleaner
 main: com.gmail.csgbshgf.Main
 authors: ['Kuludu']
-version: V0.1.0
+version: 0.1.0
 commands:
   speakingcleaner:

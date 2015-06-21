@@ -12,8 +12,7 @@ public class SpeakingCleanerListener implements Listener {
 
 	@EventHandler
 	public void onChat(PlayerChatEvent e) {
-		System.out.print(s1);
-		if (p1 == null) {
+		if (p2 == null) {
 			p1 = e.getPlayer();
 			s1 = e.getMessage();
 			SC(p1, s1);
@@ -28,7 +27,7 @@ public class SpeakingCleanerListener implements Listener {
 		// 判断刷屏
 		if (Main.isNoSpamEnable == true) {
 			if (p1 == p2 && s1 == s2) {
-		    //尚未完成
+				
 			}
 		}
 	}
