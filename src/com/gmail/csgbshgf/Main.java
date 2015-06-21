@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -68,9 +70,9 @@ public class Main extends JavaPlugin {
 						}
 					}
 				}
-         
+
 				if (args[0].equalsIgnoreCase("sc")) {
-					if (args.length >= 3) {
+					if (args.length >= 2) {
 						if (args[1].equalsIgnoreCase("e")) {
 							config.set("SpeakingCleaner:", "Enable");
 							sender.sendMessage("语言清洁开启！");
@@ -89,23 +91,10 @@ public class Main extends JavaPlugin {
 					e.printStackTrace();
 				}
 			}
-            //重载
+			// 重载
 			if (args.length == 1) {
 				if (args[0].equalsIgnoreCase("rl")) {
-					String s1 = config.getString("NoSpam:");
-					String s2 = config.getString("SpeakingCleaner:");
-					if (s1.equals(s1)) {
-						isNoSpamEnable = true;
-					} else {
-						isNoSpamEnable = false;
-					}
-					if (s2.equals(s2)) {
-						isSpeakingCleanerEnable = true;
-					} else {
-						isSpeakingCleanerEnable = false;
-					}
-					sender.sendMessage("插件重载完成！");
-					return true;
+					getSetting();
 				}
 			}
 			if (args.length > 4) {
@@ -128,6 +117,15 @@ public class Main extends JavaPlugin {
 		if (!getDataFolder().exists()) {
 			getDataFolder().mkdir();
 		}
+		getSetting();
+		try {
+			onCheck();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void getSetting() {
 		// 读取配置文件
 		File file = new File(getDataFolder() + "//config.yml");
 		FileConfiguration config = YamlConfiguration.loadConfiguration(file);
@@ -145,12 +143,12 @@ public class Main extends JavaPlugin {
 			String s1 = config.getString("NoSpam:");
 			String s2 = config.getString("SpeakingCleaner:");
 			kicktime = config.getInt("kicktime");
-			if (s1.equals(s1)) {
+			if (s1.equalsIgnoreCase("enable")) {
 				isNoSpamEnable = true;
 			} else {
 				isNoSpamEnable = false;
 			}
-			if (s2.equals(s2)) {
+			if (s2.equalsIgnoreCase("enable")) {
 				isSpeakingCleanerEnable = true;
 			} else {
 				isSpeakingCleanerEnable = false;
@@ -197,5 +195,23 @@ public class Main extends JavaPlugin {
 		}
 		// 分割字串符
 		Main.Word = temp1.split(",");
+	}
+
+	public void onCheck() throws IOException {
+		final String Currentversion = "V0.1.0";
+		final URL updateurl = new URL(
+				"http://www.kuludu.net/sc/updateservice/latestversion.html");
+		URLConnection conn = updateurl.openConnection();
+		java.io.InputStream is = conn.getInputStream();
+		BufferedReader br = new BufferedReader(new InputStreamReader(is));
+		String Latestversion = br.readLine();
+		if (Currentversion.equals(Latestversion)) {
+			getLogger().info("插件是最新版本");
+		} else {
+			getLogger().info(
+					"发现最新版本" + Latestversion
+							+ "，请前往http://www.kuludu.net/sc/updateservice/"
+							+ Latestversion + ".jar下载");
+		}
 	}
 }
