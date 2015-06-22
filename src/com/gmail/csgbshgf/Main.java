@@ -40,7 +40,7 @@ public class Main extends JavaPlugin {
 			if (args.length == 0) {
 				sender.sendMessage("==============语言清洁者使用介绍=============");
 				sender.sendMessage("=======将违禁词语放到插件文件夹Word.yml中====");
-				sender.sendMessage("词语以“,”分隔（注意是半角符号），比如：XX,YY,FF");
+				sender.sendMessage("======词语以“,”分隔，比如：XX,YY,FF===========");
 				sender.sendMessage("======输入/speakingcleaner s查看更多设置======");
 				sender.sendMessage("=======输入/speakingcleaner rl重新加载字库====");
 				sender.sendMessage("=========SpeakingCleaner V0.0.1 By:Kuludu====");
@@ -95,6 +95,7 @@ public class Main extends JavaPlugin {
 			if (args.length == 1) {
 				if (args[0].equalsIgnoreCase("rl")) {
 					getSetting();
+					sender.sendMessage("重载完成！");
 				}
 			}
 			if (args.length > 4) {
@@ -148,16 +149,17 @@ public class Main extends JavaPlugin {
 				kicktime = 2;
 				getLogger().info("踢出次数现在为" + kicktime);
 			}
-			if (s1.equalsIgnoreCase("enable")) {
-				isNoSpamEnable = true;
-			} else {
-				isNoSpamEnable = false;
-			}
 			if (s2.equalsIgnoreCase("enable")) {
 				isSpeakingCleanerEnable = true;
 			} else {
 				isSpeakingCleanerEnable = false;
 			}
+			if (s1.equalsIgnoreCase("enable")) {
+				isNoSpamEnable = true;
+			} else {
+				isNoSpamEnable = false;
+			}
+
 		}
 		// 获取字库
 		File Word = new File(getDataFolder() + "//Word.yml");
