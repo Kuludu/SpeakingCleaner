@@ -207,7 +207,7 @@ public class Main extends JavaPlugin {
 	public void onCheck() throws IOException {
 		final String Currentversion = "V0.1.0";
 		final URL updateurl = new URL(
-				"http://www.kuludu.net/sc/updateservice/latestversion.html");
+				"https://dn-dl-kuludu.qbox.me/sp_latest.html");
 		URLConnection conn = updateurl.openConnection();
 		java.io.InputStream is = conn.getInputStream();
 		BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -217,7 +217,7 @@ public class Main extends JavaPlugin {
 		} else {
 			getLogger().info(
 					"发现最新版本" + Latestversion
-							+ "，请前往http://www.kuludu.net/sc/updateservice/"
+							+ "，请前往https://dn-dl-kuludu.qbox.me/sp_"
 							+ Latestversion + ".jar下载");
 		}
 	}
